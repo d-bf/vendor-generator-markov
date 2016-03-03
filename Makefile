@@ -19,34 +19,37 @@ CFLAGS_WINDOWS64  = $(CFLAGS) -m64 -DWINDOWS
 CFLAGS_OSX32      = $(CFLAGS) -m32 -DOSX
 CFLAGS_OSX64      = $(CFLAGS) -m64 -DOSX
 
-all: sp64.bin
+dbf: all
 
-sp32: sp32.bin sp32.exe sp32.app
-sp64: sp64.bin sp64.exe sp64.app
+all: linux win mac
+
+linux: linux_64.bin linux_32.bin
+win: win_64.exe win_32.exe
+mac: mac_64.app mac_32.app
 
 clean:
 	rm -f -R ./bin
 
-sp32.bin: ./src/sp.c
+linux_32.bin: ./src/sp.c
 	mkdir -p ./bin
-	-$(CC_LINUX32)   $(CFLAGS_LINUX32)   -o ./bin/$@ $^
+	-$(CC_LINUX32)   $(CFLAGS_LINUX32)   -o ./bin/cpu_$@ $^
 
-sp64.bin: ./src/sp.c
+linux_64.bin: ./src/sp.c
 	mkdir -p ./bin
-	-$(CC_LINUX64)   $(CFLAGS_LINUX64)   -o ./bin/$@ $^
+	-$(CC_LINUX64)   $(CFLAGS_LINUX64)   -o ./bin/cpu_$@ $^
 
-sp32.exe: ./src/sp.c
+win_32.exe: ./src/sp.c
 	mkdir -p ./bin
-	-$(CC_WINDOWS32) $(CFLAGS_WINDOWS32) -o ./bin/$@ $^
+	-$(CC_WINDOWS32) $(CFLAGS_WINDOWS32) -o ./bin/cpu_$@ $^
 
-sp64.exe: ./src/sp.c
+win_64.exe: ./src/sp.c
 	mkdir -p ./bin
-	-$(CC_WINDOWS64) $(CFLAGS_WINDOWS64) -o ./bin/$@ $^
+	-$(CC_WINDOWS64) $(CFLAGS_WINDOWS64) -o ./bin/cpu_$@ $^
 
-sp32.app: ./src/sp.c
+mac_32.app: ./src/sp.c
 	mkdir -p ./bin
-	-$(CC_OSX32)     $(CFLAGS_OSX32)     -o ./bin/$@ $^
+	-$(CC_OSX32)     $(CFLAGS_OSX32)     -o ./bin/cpu_$@ $^
 
-sp64.app: ./src/sp.c
+mac_64.app: ./src/sp.c
 	mkdir -p ./bin
-	-$(CC_OSX64)     $(CFLAGS_OSX64)     -o ./bin/$@ $^
+	-$(CC_OSX64)     $(CFLAGS_OSX64)     -o ./bin/cpu_$@ $^
