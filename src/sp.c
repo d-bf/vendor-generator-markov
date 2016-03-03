@@ -21,14 +21,14 @@
 #define CHARSIZ         0x100
 #define OUTBUFSIZ       BUFSIZ
 
-#define VERSION_BIN     12
-#define PW_MIN          1
-#define PW_MAX          64
-#define THRESHOLD       0
-#define SKIP            0
-#define LIMIT           0
-#define MARKOV_DISABLE  0
-#define MARKOV_CLASSIC  0
+#define VERSION_BIN       12
+#define PW_MIN            1
+#define PW_MAX            64
+#define MARKOV_THRESHOLD  0
+#define SKIP              0
+#define LIMIT             0
+#define MARKOV_DISABLE    0
+#define MARKOV_CLASSIC    0
 
 typedef struct
 {
@@ -61,41 +61,41 @@ static const char *USAGE_BIG[] =
   "",
   "* Startup:",
   "",
-  "  -V,  --version             Print version",
-  "  -h,  --help                Print help",
+  "  -V,  --version               Print version",
+  "  -h,  --help                  Print help",
   "",
   "* Increment:",
   "",
-  "       --pw-min=NUM          Start incrementing at NUM",
-  "       --pw-max=NUM          Stop incrementing at NUM",
+  "       --pw-min=NUM            Start incrementing at NUM",
+  "       --pw-max=NUM            Stop incrementing at NUM",
   "",
   "* Markov:",
   "",
-  "       --markov-disable      Emulates maskprocessor output",
-  "       --markov-classic      No per-position tables",
-  "       --threshold=NUM       Filter out chars after NUM chars added",
-  "                             Set to 0 to disable",
+  "       --markov-disable        Emulates maskprocessor output",
+  "       --markov-classic        No per-position tables",
+  "  -t,  --markov-threshold=NUM  Filter out chars after NUM chars added",
+  "                               Set to 0 to disable",
   "",
   "* Misc:",
   "",
-  "       --combinations        Calculate number of combinations",
-  "       --hex-charset         Assume charset is given in hex",
+  "       --combinations          Calculate number of combinations",
+  "       --hex-charset           Assume charset is given in hex",
   "",
   "* Resources:",
   "",
-  "  -s,  --skip=NUM            skip number of words (for restore)",
-  "  -l,  --limit=NUM           limit number of words (for distributed)",
+  "  -s,  --skip=NUM              skip number of words (for restore)",
+  "  -l,  --limit=NUM             limit number of words (for distributed)",
   "",
   "* Files:",
   "",
-  "  -o,  --output-file=FILE    Output-file",
+  "  -o,  --output-file=FILE      Output-file",
   "",
   "* Custom charsets:",
   "",
-  "  -1,  --custom-charset1=CS  User-defineable charsets",
-  "  -2,  --custom-charset2=CS  Example:",
-  "  -3,  --custom-charset3=CS  --custom-charset1=?dabcdef",
-  "  -4,  --custom-charset4=CS  sets charset ?1 to 0123456789abcdef",
+  "  -1,  --custom-charset1=CS    User-defineable charsets",
+  "  -2,  --custom-charset2=CS    Example:",
+  "  -3,  --custom-charset3=CS    --custom-charset1=?dabcdef",
+  "  -4,  --custom-charset4=CS    sets charset ?1 to 0123456789abcdef",
   "",
   "* Built-in charsets:",
   "",
@@ -466,7 +466,7 @@ int main (int argc, char *argv[])
   uint32_t  markov_classic    = 0;
   uint32_t  pw_min            = PW_MIN;
   uint32_t  pw_max            = PW_MAX;
-  uint32_t  threshold         = THRESHOLD;
+  uint32_t  markov_threshold  = MARKOV_THRESHOLD;
   uint64_t  skip              = SKIP;
   uint64_t  limit             = LIMIT;
   char     *output_file       = NULL;
@@ -483,7 +483,7 @@ int main (int argc, char *argv[])
   #define IDX_PW_MAX            3
   #define IDX_MARKOV_DISABLE    4
   #define IDX_MARKOV_CLASSIC    5
-  #define IDX_THRESHOLD         't'
+  #define IDX_MARKOV_THRESHOLD  't'
   #define IDX_SKIP              's'
   #define IDX_LIMIT             'l'
   #define IDX_OUTPUT_FILE       'o'
@@ -494,22 +494,22 @@ int main (int argc, char *argv[])
 
   struct option long_options[] =
   {
-    {"version",         no_argument,       0, IDX_VERSION},
-    {"help",            no_argument,       0, IDX_USAGE},
-    {"combinations",    no_argument,       0, IDX_COMBINATIONS},
-    {"hex-charset",     no_argument,       0, IDX_HEX_CHARSET},
-    {"markov-disable",  no_argument,       0, IDX_MARKOV_DISABLE},
-    {"markov-classic",  no_argument,       0, IDX_MARKOV_CLASSIC},
-    {"pw-min",          required_argument, 0, IDX_PW_MIN},
-    {"pw-max",          required_argument, 0, IDX_PW_MAX},
-    {"threshold",       required_argument, 0, IDX_THRESHOLD},
-    {"output-file",     required_argument, 0, IDX_OUTPUT_FILE},
-    {"skip",            required_argument, 0, IDX_SKIP},
-    {"limit",           required_argument, 0, IDX_LIMIT},
-    {"custom-charset1", required_argument, 0, IDX_CUSTOM_CHARSET_1},
-    {"custom-charset2", required_argument, 0, IDX_CUSTOM_CHARSET_2},
-    {"custom-charset3", required_argument, 0, IDX_CUSTOM_CHARSET_3},
-    {"custom-charset4", required_argument, 0, IDX_CUSTOM_CHARSET_4},
+    {"version",           no_argument,       0, IDX_VERSION},
+    {"help",              no_argument,       0, IDX_USAGE},
+    {"combinations",      no_argument,       0, IDX_COMBINATIONS},
+    {"hex-charset",       no_argument,       0, IDX_HEX_CHARSET},
+    {"markov-disable",    no_argument,       0, IDX_MARKOV_DISABLE},
+    {"markov-classic",    no_argument,       0, IDX_MARKOV_CLASSIC},
+    {"pw-min",            required_argument, 0, IDX_PW_MIN},
+    {"pw-max",            required_argument, 0, IDX_PW_MAX},
+    {"markov_threshold",  required_argument, 0, IDX_MARKOV_THRESHOLD},
+    {"output-file",       required_argument, 0, IDX_OUTPUT_FILE},
+    {"skip",              required_argument, 0, IDX_SKIP},
+    {"limit",             required_argument, 0, IDX_LIMIT},
+    {"custom-charset1",   required_argument, 0, IDX_CUSTOM_CHARSET_1},
+    {"custom-charset2",   required_argument, 0, IDX_CUSTOM_CHARSET_2},
+    {"custom-charset3",   required_argument, 0, IDX_CUSTOM_CHARSET_3},
+    {"custom-charset4",   required_argument, 0, IDX_CUSTOM_CHARSET_4},
     {0, 0, 0, 0}
   };
 
@@ -529,7 +529,7 @@ int main (int argc, char *argv[])
       case IDX_MARKOV_CLASSIC:    markov_classic    = 1;                      break;
       case IDX_PW_MIN:            pw_min            = atoi (optarg);          break;
       case IDX_PW_MAX:            pw_max            = atoi (optarg);          break;
-      case IDX_THRESHOLD:         threshold         = atoi (optarg);          break;
+      case IDX_MARKOV_THRESHOLD:  markov_threshold  = atoi (optarg);          break;
       case IDX_OUTPUT_FILE:       output_file       = optarg;                 break;
       case IDX_SKIP:              skip              = atoll (optarg);         break;
       case IDX_LIMIT:             limit             = atoll (optarg) + skip;  break;
@@ -824,7 +824,7 @@ int main (int argc, char *argv[])
    * enable bf by setting threshold to CHARSIZ
    */
 
-  threshold = (threshold != 0) ? threshold : CHARSIZ;
+  markov_threshold = (markov_threshold != 0) ? markov_threshold : CHARSIZ;
 
   /**
    * Convert tables to css
@@ -840,7 +840,7 @@ int main (int argc, char *argv[])
 
     cs_t *cs = &root_css_buf[pw_pos];
 
-    if (cs->cs_len == threshold) continue;
+    if (cs->cs_len == markov_threshold) continue;
 
     uint32_t key = root_table_buf[i].key;
 
@@ -857,7 +857,7 @@ int main (int argc, char *argv[])
 
     cs_t *cs = &markov_css_buf[c];
 
-    if (cs->cs_len == threshold) continue;
+    if (cs->cs_len == markov_threshold) continue;
 
     uint32_t key = markov_table_buf[i].key;
 
