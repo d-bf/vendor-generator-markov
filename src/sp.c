@@ -435,7 +435,7 @@ static void sp_exec (uint64_t ctx, uint8_t *pw_buf, cs_t *root_css_buf, cs_t *ma
 
   cs_t *cs = &root_css_buf[start];
 
-  uint32_t i;
+  uint32_t i, j = stop;
 
   for (i = start; i < stop; i++)
   {
@@ -446,7 +446,7 @@ static void sp_exec (uint64_t ctx, uint8_t *pw_buf, cs_t *root_css_buf, cs_t *ma
 
     const uint32_t k = cs->cs_buf[m];
 
-    pw_buf[i] = (uint8_t) k;
+    pw_buf[--j] = (uint8_t) k;
 
     cs = &markov_css_buf[(i * CHARSIZ) + k];
   }
