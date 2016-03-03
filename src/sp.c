@@ -521,22 +521,22 @@ int main (int argc, char *argv[])
   {
     switch (c)
     {
-      case IDX_VERSION:           version           = 1;              break;
-      case IDX_USAGE:             usage             = 1;              break;
-      case IDX_HEX_CHARSET:       hex_charset       = 1;              break;
-      case IDX_COMBINATIONS:      combinations      = 1;              break;
-      case IDX_MARKOV_DISABLE:    markov_disable    = 1;              break;
-      case IDX_MARKOV_CLASSIC:    markov_classic    = 1;              break;
-      case IDX_PW_MIN:            pw_min            = atoi (optarg);  break;
-      case IDX_PW_MAX:            pw_max            = atoi (optarg);  break;
-      case IDX_THRESHOLD:         threshold         = atoi (optarg);  break;
-      case IDX_OUTPUT_FILE:       output_file       = optarg;         break;
-      case IDX_SKIP:              skip              = atoll (optarg); break;
-      case IDX_LIMIT:             limit             = atoll (optarg); break;
-      case IDX_CUSTOM_CHARSET_1:  custom_charset_1  = optarg;         break;
-      case IDX_CUSTOM_CHARSET_2:  custom_charset_2  = optarg;         break;
-      case IDX_CUSTOM_CHARSET_3:  custom_charset_3  = optarg;         break;
-      case IDX_CUSTOM_CHARSET_4:  custom_charset_4  = optarg;         break;
+      case IDX_VERSION:           version           = 1;                      break;
+      case IDX_USAGE:             usage             = 1;                      break;
+      case IDX_HEX_CHARSET:       hex_charset       = 1;                      break;
+      case IDX_COMBINATIONS:      combinations      = 1;                      break;
+      case IDX_MARKOV_DISABLE:    markov_disable    = 1;                      break;
+      case IDX_MARKOV_CLASSIC:    markov_classic    = 1;                      break;
+      case IDX_PW_MIN:            pw_min            = atoi (optarg);          break;
+      case IDX_PW_MAX:            pw_max            = atoi (optarg);          break;
+      case IDX_THRESHOLD:         threshold         = atoi (optarg);          break;
+      case IDX_OUTPUT_FILE:       output_file       = optarg;                 break;
+      case IDX_SKIP:              skip              = atoll (optarg);         break;
+      case IDX_LIMIT:             limit             = atoll (optarg) + skip;  break;
+      case IDX_CUSTOM_CHARSET_1:  custom_charset_1  = optarg;                 break;
+      case IDX_CUSTOM_CHARSET_2:  custom_charset_2  = optarg;                 break;
+      case IDX_CUSTOM_CHARSET_3:  custom_charset_3  = optarg;                 break;
+      case IDX_CUSTOM_CHARSET_4:  custom_charset_4  = optarg;                 break;
 
       default: return (-1);
     }
