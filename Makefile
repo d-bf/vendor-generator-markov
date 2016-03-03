@@ -25,22 +25,28 @@ sp32: sp32.bin sp32.exe sp32.app
 sp64: sp64.bin sp64.exe sp64.app
 
 clean:
-	rm -f sp32.bin sp64.bin sp32.exe sp64.exe sp32.app sp64.app
+	rm -f -R ./bin
 
-sp32.bin: sp.c
-	-$(CC_LINUX32)   $(CFLAGS_LINUX32)   -o $@ $^
+sp32.bin: ./src/sp.c
+	mkdir -p ./bin
+	-$(CC_LINUX32)   $(CFLAGS_LINUX32)   -o ./bin/$@ $^
 
-sp64.bin: sp.c
-	-$(CC_LINUX64)   $(CFLAGS_LINUX64)   -o $@ $^
+sp64.bin: ./src/sp.c
+	mkdir -p ./bin
+	-$(CC_LINUX64)   $(CFLAGS_LINUX64)   -o ./bin/$@ $^
 
-sp32.exe: sp.c
-	-$(CC_WINDOWS32) $(CFLAGS_WINDOWS32) -o $@ $^
+sp32.exe: ./src/sp.c
+	mkdir -p ./bin
+	-$(CC_WINDOWS32) $(CFLAGS_WINDOWS32) -o ./bin/$@ $^
 
-sp64.exe: sp.c
-	-$(CC_WINDOWS64) $(CFLAGS_WINDOWS64) -o $@ $^
+sp64.exe: ./src/sp.c
+	mkdir -p ./bin
+	-$(CC_WINDOWS64) $(CFLAGS_WINDOWS64) -o ./bin/$@ $^
 
-sp32.app: sp.c
-	-$(CC_OSX32)     $(CFLAGS_OSX32)     -o $@ $^
+sp32.app: ./src/sp.c
+	mkdir -p ./bin
+	-$(CC_OSX32)     $(CFLAGS_OSX32)     -o ./bin/$@ $^
 
-sp64.app: sp.c
-	-$(CC_OSX64)     $(CFLAGS_OSX64)     -o $@ $^
+sp64.app: ./src/sp.c
+	mkdir -p ./bin
+	-$(CC_OSX64)     $(CFLAGS_OSX64)     -o ./bin/$@ $^
